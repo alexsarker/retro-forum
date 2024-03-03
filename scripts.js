@@ -1,3 +1,4 @@
+//  let's discuss----------------------------------------------------------------->
 const letsDiscuss = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
     const data = await res.json();
@@ -6,52 +7,56 @@ const letsDiscuss = async () => {
 
     data.posts.forEach(post => {
         const div = document.createElement('div');
-        div.innerHTML = `<div class="card card-side bg-[#F3F3F5] text-font-color p-10">
-        <div class="indicator pt-8">
-            <span id="indicator-color" class="indicator-item indicator-center bg-green-500 border-green-500 badge badge-secondary ml-8 mt-12"></span>
-            <img class="grid w-24 h-24 place-items-center rounded-full" src="${post?.image}">
-          </div>
-        <div class="card-body">
-            <!-- category-author -->
-            <p class="text-[#12132DCC] font-medium pr-5"># ${post?.category}<span
-                    class="pl-4">Author: ${post?.author?.name}</span></p>
 
-            <h2 class="card-title pt-3 pb-4 text-main-color font-bold">${post?.title}</h2>
-            <p class="pb-4">${post?.description}</p>
+        const indicatorColorClass = post.isActive ? 'bg-green-500 border-2 border-white' : 'bg-red-500 border-2 border-white';
 
-            <hr class="border-dashed border-[#12132D40] p-2">
-
-            <!-- body-footer  -->
-            <div class="flex justify-between">
-                <!-- comment-view-time -->
-                <div class="flex gap-8">
-                    <div class="flex gap-2 items-center">
-                        <ion-icon class="text-2xl" name="reader-outline"></ion-icon>
-                        <p>${post?.comment_count}</p>
-                    </div>
-                    <div class="flex gap-2 items-center">
-                        <ion-icon class="text-2xl" name="eye-outline"></ion-icon>
-                        <p>${post?.view_count}</p>
-                    </div>
-                    <div class="flex gap-2 items-center">
-                        <ion-icon class="text-2xl" name="time-outline"></ion-icon>
-                        <p><span>${post?.posted_time}</span> min</p>
-                    </div>
-                </div>
-
-                <!-- button -->
-                <button><img src="images/email.png" alt=""></button>
+        div.innerHTML = `
+        <div class="card card-side bg-[#F3F3F5] text-font-color p-10">
+            <div class="indicator pt-8">
+                <span class="indicator-item indicator-center ${indicatorColorClass} badge badge-secondary ml-8 mt-12"></span>
+                <img class="grid w-24 h-24 place-items-center rounded-full" src="${post?.image}">
             </div>
-        </div>
-    </div>`
+            <div class="card-body">
+                <!-- category-author -->
+                <p class="text-[#12132DCC] font-medium pr-5"># ${post?.category}<span
+                        class="pl-4">Author: ${post?.author?.name}</span></p>
 
-    postContainer.appendChild(div);
+                <h2 class="card-title pt-3 pb-4 text-main-color font-bold">${post?.title}</h2>
+                <p class="pb-4">${post?.description}</p>
 
-     const indicatorColor = document.getElementById('indicator-color');
-     
+                <hr class="border-dashed border-[#12132D40] p-2">
+
+                <!-- body-footer  -->
+                <div class="flex justify-between">
+                    <!-- comment-view-time -->
+                    <div class="flex gap-8">
+                        <div class="flex gap-2 items-center">
+                            <ion-icon class="text-2xl" name="reader-outline"></ion-icon>
+                            <p>${post?.comment_count}</p>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <ion-icon class="text-2xl" name="eye-outline"></ion-icon>
+                            <p>${post?.view_count}</p>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <ion-icon class="text-2xl" name="time-outline"></ion-icon>
+                            <p><span>${post?.posted_time}</span> min</p>
+                        </div>
+                    </div>
+
+                    <!-- button -->
+                    <button id="email-button" onclick="buttonHandler()"><img src="images/email.png" alt=""></button>
+                </div>
+            </div>
+        </div>`;
+
+        postContainer.appendChild(div);
+
+        
     });
-
 }
+
+
 
 
 
@@ -91,7 +96,5 @@ const latestPosts = async () => {
         cardContainer.appendChild(div);
     });
 }
-
-
 letsDiscuss()
 latestPosts()
