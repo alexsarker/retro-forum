@@ -10,21 +10,24 @@ const letsDiscuss = async () => {
         const indicatorColorClass = post.isActive ? 'bg-green-500 border-2 border-white' : 'bg-red-500 border-2 border-white';
 
         div.innerHTML = `
-            <div class="card card-side bg-[#F3F3F5] text-font-color p-10">
+            <div class="card card-side flex flex-col lg:flex-row bg-[#F3F3F5] items-center lg:items-start text-center lg:text-start text-font-color p-10">
                 <div class="indicator pt-8">
                     <span class="indicator-item indicator-center ${indicatorColorClass} badge badge-secondary ml-8 mt-12"></span>
                     <img class="grid w-24 h-24 place-items-center rounded-full" src="${post?.image}">
                 </div>
                 <div class="card-body">
-                    <p class="text-[#12132DCC] font-medium pr-5"># ${post?.category}<span class="pl-4">Author: ${post?.author?.name}</span></p>
+                    <div class="flex flex-col lg:flex-row gap-2 lg:gap-0">
+                    <p class="text-[#12132DCC] font-medium"># ${post?.category}</p>
+                    <p>Author: ${post?.author?.name}</p>
+                    </div>
                     <h2 class="card-title pt-3 pb-4 text-main-color font-bold">${post?.title}</h2>
                     <p class="pb-4">${post?.description}</p>
                     <hr class="border-dashed border-[#12132D40] p-2">
-                    <div class="flex justify-between">
+                    <div class="flex flex-col lg:flex-row justify-between gap-6 lg:gap-0 items-center lg:items-start">
                         <div class="flex gap-8">
                             <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="reader-outline"></ion-icon><p>${post?.comment_count}</p></div>
                             <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="eye-outline"></ion-icon><p>${post?.view_count}</p></div>
-                            <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="time-outline"></ion-icon><p><span>${post?.posted_time}</span> min</p></div>
+                            <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="time-outline"></ion-icon><p>${post?.posted_time}min</p></div>
                         </div>
                         <button class="email-button" onclick="handleEmailButtonClick('${post?.title}', ${post?.view_count})"><img src="images/email.png" alt=""></button>
                     </div>
@@ -84,7 +87,7 @@ const latestPosts = async () => {
 
     data.forEach(card => {
         const div = document.createElement('div');
-        div.innerHTML = `<div  class="card w-96 bg-base-100 border border-[#12132D26]">
+        div.innerHTML = `<div class="card lg:w-96 w-80 mx-auto lg:mx-0 bg-base-100 border border-[#12132D26]">
         <figure class="px-6 pt-6">
         <img src="${card.cover_image}" alt="Shoes"
             class="rounded-xl" />
