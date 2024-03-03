@@ -1,63 +1,77 @@
-//  let's discuss----------------------------------------------------------------->
+// Let's discuss------------------------------------------------------------------->
 const letsDiscuss = async () => {
     const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
     const data = await res.json();
 
-    const postContainer = document.getElementById('post-container')
+    const postContainer = document.getElementById('post-container');
 
     data.posts.forEach(post => {
         const div = document.createElement('div');
-
         const indicatorColorClass = post.isActive ? 'bg-green-500 border-2 border-white' : 'bg-red-500 border-2 border-white';
 
         div.innerHTML = `
-        <div class="card card-side bg-[#F3F3F5] text-font-color p-10">
-            <div class="indicator pt-8">
-                <span class="indicator-item indicator-center ${indicatorColorClass} badge badge-secondary ml-8 mt-12"></span>
-                <img class="grid w-24 h-24 place-items-center rounded-full" src="${post?.image}">
-            </div>
-            <div class="card-body">
-                <!-- category-author -->
-                <p class="text-[#12132DCC] font-medium pr-5"># ${post?.category}<span
-                        class="pl-4">Author: ${post?.author?.name}</span></p>
-
-                <h2 class="card-title pt-3 pb-4 text-main-color font-bold">${post?.title}</h2>
-                <p class="pb-4">${post?.description}</p>
-
-                <hr class="border-dashed border-[#12132D40] p-2">
-
-                <!-- body-footer  -->
-                <div class="flex justify-between">
-                    <!-- comment-view-time -->
-                    <div class="flex gap-8">
-                        <div class="flex gap-2 items-center">
-                            <ion-icon class="text-2xl" name="reader-outline"></ion-icon>
-                            <p>${post?.comment_count}</p>
-                        </div>
-                        <div class="flex gap-2 items-center">
-                            <ion-icon class="text-2xl" name="eye-outline"></ion-icon>
-                            <p>${post?.view_count}</p>
-                        </div>
-                        <div class="flex gap-2 items-center">
-                            <ion-icon class="text-2xl" name="time-outline"></ion-icon>
-                            <p><span>${post?.posted_time}</span> min</p>
-                        </div>
-                    </div>
-
-                    <!-- button -->
-                    <button id="email-button" onclick="buttonHandler()"><img src="images/email.png" alt=""></button>
+            <div class="card card-side bg-[#F3F3F5] text-font-color p-10">
+                <div class="indicator pt-8">
+                    <span class="indicator-item indicator-center ${indicatorColorClass} badge badge-secondary ml-8 mt-12"></span>
+                    <img class="grid w-24 h-24 place-items-center rounded-full" src="${post?.image}">
                 </div>
-            </div>
-        </div>`;
+                <div class="card-body">
+                    <p class="text-[#12132DCC] font-medium pr-5"># ${post?.category}<span class="pl-4">Author: ${post?.author?.name}</span></p>
+                    <h2 class="card-title pt-3 pb-4 text-main-color font-bold">${post?.title}</h2>
+                    <p class="pb-4">${post?.description}</p>
+                    <hr class="border-dashed border-[#12132D40] p-2">
+                    <div class="flex justify-between">
+                        <div class="flex gap-8">
+                            <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="reader-outline"></ion-icon><p>${post?.comment_count}</p></div>
+                            <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="eye-outline"></ion-icon><p>${post?.view_count}</p></div>
+                            <div class="flex gap-2 items-center"><ion-icon class="text-2xl" name="time-outline"></ion-icon><p><span>${post?.posted_time}</span> min</p></div>
+                        </div>
+                        <button class="email-button" onclick="handleEmailButtonClick('${post?.title}', ${post?.view_count})"><img src="images/email.png" alt=""></button>
+                    </div>
+                </div>
+            </div>`;
 
         postContainer.appendChild(div);
-
-        
     });
 }
 
+const appendedTitles = new Set();
 
+function handleEmailButtonClick(title, viewCount) {
+    if (!appendedTitles.has(title)) {
+        const appendContainer = document.getElementById('append-container');
+        const div = document.createElement('div');
+        div.innerHTML = `<div class="flex justify-between gap-4 p-4 bg-white rounded-2xl">
+            <h2 class="max-w-80 text-main-color font-semibold ">${title}</h2>
+            <div class="flex gap-2 items-center text-font-color">
+                <ion-icon class="text-2xl" name="eye-outline"></ion-icon>
+                <p>${viewCount}</p>
+            </div>
+        </div>`
 
+        appendContainer.appendChild(div);
+        appendedTitles.add(title);
+
+        updateMarkAsRead();
+    }
+}
+
+function updateMarkAsRead() {
+    const markReadCounter = document.getElementById('mark-read-counter');
+    markReadCounter.textContent = Array.from(appendedTitles).length;
+}
+
+const markReadHead = document.getElementById('mark-read-head');
+const div = document.createElement('div');
+div.innerHTML = `<div class="flex justify-between items-center gap-32 pb-12">
+<h1 class="text-xl font-bold text-main-color">Title</h1>
+<div class="flex gap-2 items-center text-font-color">
+    <img src="images/tick.png">
+    <p>Mark as read (<span id="mark-read-counter">${appendedTitles.size}</span>)</p>
+</div>
+</div>`
+
+markReadHead.appendChild(div);
 
 
 
@@ -96,5 +110,10 @@ const latestPosts = async () => {
         cardContainer.appendChild(div);
     });
 }
+
+
+
+
+// calling function area
 letsDiscuss()
 latestPosts()
