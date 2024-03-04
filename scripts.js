@@ -3,6 +3,8 @@ const letsDiscuss = async () => {
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts`);
     const data = await res.json();
 
+    // toggleLoadingSpinner(false);
+
     const postContainer = document.getElementById('post-container');
 
     data.posts.forEach(post => {
@@ -120,6 +122,7 @@ const latestPosts = async () => {
 const loadSearch = async (searchText) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`);
     const data = await res.json();
+    // toggleLoadingSpinner(false);
 
     const postContainer = document.getElementById('post-container');
     postContainer.innerHTML = '';
@@ -155,14 +158,27 @@ const loadSearch = async (searchText) => {
 
         postContainer.appendChild(div);
     });
+    
 }
 
 
 const handleSearch = () => {
+    // toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadSearch(searchText);
+}
 
+
+// loading spinner
+const toggleLoadingSpinner = (isLoading) => {
+    const loadSpinner = document.getElementById('load-spinner');
+
+    if (isLoading) {
+        loadSpinner.classList.remove('hidden');
+    } else {
+        loadSpinner.classList.add('hidden');        
+    }
 }
 
 

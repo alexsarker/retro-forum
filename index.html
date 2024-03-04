@@ -97,11 +97,14 @@
 
                         <!-- search bar -->
                         <label class="input input-bordered flex items-center gap-2 rounded-3xl">
-                            <input id="search-field" type="text" class="grow text-font-color" placeholder="Search here anything" />
-                            <button onclick="handleSearch()" class="bg-light-color text-lg font-bold py-1 px-6 rounded-3xl">Search</button>
+                            <input id="search-field" type="text" class="grow text-font-color"
+                                placeholder="Search here anything" />
+                            <button onclick="handleSearch()"
+                                class="bg-light-color text-lg font-bold py-1 px-6 rounded-3xl">Search</button>
                         </label>
                     </div>
-                    <div class="lg:w-96 lg:h-56 w-72 h-56 justify-center p-12 bg-white rounded-3xl text-xl text-main-color flex flex-col gap-4">
+                    <div
+                        class="lg:w-96 lg:h-56 w-72 h-56 justify-center p-12 bg-white rounded-3xl text-xl text-main-color flex flex-col gap-4">
                         <div class="flex justify-between">
                             <p>Registered Users</p>
                             <p>01</p>
@@ -142,11 +145,11 @@
                     <div class="p-6 bg-[#12132D0D] rounded-3xl mx-4 lg:mx-0">
                         <!-- head -->
                         <div id="mark-read-head"></div>
-                    
+
                         <!-- appendChild() -->
                         <div id="append-container" class="flex flex-col gap-4">
                             <!-- slot -->
-                            
+
                         </div>
                     </div>
                 </div>
@@ -156,7 +159,8 @@
         </section>
 
         <!-- section-3 -->
-        <section class="flex flex-col lg:flex-row text-center lg:text-start lg:gap-4 gap-16 p-16 bg-main-color rounded-3xl text-white items-center justify-evenly mt-24">
+        <section
+            class="flex flex-col lg:flex-row text-center lg:text-start lg:gap-4 gap-16 p-16 bg-main-color rounded-3xl text-white items-center justify-evenly mt-24">
             <div>
                 <h1 class="font-black text-5xl">Join Our Forum</h1>
                 <p class="pt-4 pb-8 max-w-[652px] text-[#FFFFFFCC]">Share your favorite opinion and win and wp forum
@@ -173,15 +177,22 @@
         <section>
             <div class="text-center mt-24">
                 <h1 class="text-main-color font-black text-5xl">Latest Posts</h1>
-                <p class="pt-6 pb-12 text-font-color">Explore the Freshest Updates: Latest Posts Await Your Discovery!</p>
+                <p class="pt-6 pb-12 text-font-color">Explore the Freshest Updates: Latest Posts Await Your Discovery!
+                </p>
             </div>
 
             <!-- latest container -->
             <div id="card-container" class="flex flex-col lg:flex-row gap-6 justify-evenly">
                 <!-- card -->
-                </div>
+            </div>
             </div>
         </section>
+
+
+        <!-- loading spinner -->
+        <div id="load-spinner" class="text-center my-40 hidden">
+            <span class="loading loading-dots loading-lg"></span>
+        </div>
     </main>
 
 
